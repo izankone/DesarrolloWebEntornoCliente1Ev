@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Añadir Site</title>
+    <link rel="stylesheet" href="style.css"> </head>
+<body>
+
+    <header>
+        <h1>Añadir Nuevo Site</h1>
+    </header>
+
+    <main class="form-container">
+        <form id="siteForm">
+            <label for="category_id">Seleccionar Categoría:</label>
+            <select id="category_id" required>
+                </select>
+            
+            <label for="name">URL/Nombre:</label>
+            <input type="url" id="name" required>
+            
+            <label for="user">Usuario:</label>
+            <input type="text" id="user" required>
+            
+            <label for="password">Contraseña:</label>
+            <div class="password-group">
+                <input type="password" id="password" required>
+                <button type="button" id="btnGeneratePass" title="Generación automática">🔑</button> 
+            </div>
+            
+            <label for="description">Descripción:</label>
+            <textarea id="description"></textarea>
+            
+            <div class="form-actions">
+                <button type="button" id="btnCancel">Cancel</button>
+                <button type="submit">Save</button>
+            </div>
+        </form>
+    </main>
+
+    <script src="api.js"></script>
+    <script src="form.js"></script>
+</body>
+</html>

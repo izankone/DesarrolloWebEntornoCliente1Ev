@@ -38,3 +38,38 @@ th { background-color: #0099cc; color: white; }
 
 li { cursor: pointer; list-style: none; padding: 5px; }
 li:hover { background-color: #f0f0f0; }
+/* www/style.css */
+
+/* ... tu código CSS anterior ... */
+
+/* Estilo para marcar campos obligatorios vacíos */
+.input-error {
+    border: 2px solid red;
+    box-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
+}
+
+.error-message {
+    color: red;
+    font-size: 0.8em;
+    margin-top: 5px;
+}
+/* www/style.css */
+
+/* ... (Añadir al final) ... */
+
+.category-icon {
+    margin-right: 8px;
+    font-size: 1.1em;
+}
+
+/* Ajustamos el layout de los ítems de la lista para que el texto y los iconos estén alineados */
+#categoryList li {
+    display: flex;
+    justify-content: space-between; /* Distribuye el espacio entre el texto y el botón de borrar */
+    align-items: center;
+}
+
+#categoryList li span {
+    flex-grow: 1; /* Permite que el nombre ocupe el espacio restante */
+    cursor: pointer;
+}

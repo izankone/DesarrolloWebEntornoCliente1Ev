@@ -1,21 +1,29 @@
 {
-  "development": {
-    "database": "password-manager",
-    "dialect": "sqlite",
-    "storage": "./database.sqlite"
-  },
-  "test": {
-    "username": "root",
-    "password": null,
-    "database": "database_test",
-    "host": "127.0.0.1",
-    "dialect": "sqlite"
-  },
-  "production": {
-    "username": "root",
-    "password": null,
-    "database": "database_production",
-    "host": "127.0.0.1",
-    "dialect": "mysql"
-  }
+  "categories": [
+    {
+      "id": 1,
+      "name": "Social Networks",
+      "icon": "✉️"
+    },
+    {
+      "id": 2,
+      "name": "Bancos",
+      "icon": "🏦"
+    },
+    {
+      "id": 3,
+      "name": "Comercio Electrónico",
+      "icon": "📈"
+    }
+  ],
+  "sites": [
+    {
+      "id": 1,
+      "categoryId": 1,
+      "name": "Ejemplo Site",
+      "user": "ejemplo@user.com",
+      "password": "pass",
+      "url": "https://ejemplo.com"
+    }
+  ]
 }
