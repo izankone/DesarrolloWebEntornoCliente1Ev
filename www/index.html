@@ -5,19 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pass Saver</title>
     <link rel="stylesheet" href="style.css">
+    
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
 
     <header>
-      <h1>Pass saver</h1>
-    <div class="header-actions">
-        <input type="text" id="searchBar" placeholder="Search categories or sites...">
-        
-        <button id="btnSelectIcon" title="Seleccionar Icono para la nueva categoría">🖼️</button>
-
-        <button id="btnAddCategory">Add category</button>
-        <button id="btnAddSite">Add site</button>
-    </div>
+        <h1>Pass saver</h1>
+        <div class="header-actions">
+            <input type="text" id="searchBar" placeholder="Search categories or sites...">
+            <button id="btnAddCategory">Add category</button>
+            <button id="btnAddSite">Add site</button>
+        </div>
     </header>
 
     <div class="container">
@@ -46,5 +45,7 @@
         </main>
     </div>
 
-    <script src="api.js"></script>    <script src="index.js"></script>  </body>
+    <script src="api.js"></script>
+    <script src="index.js"></script>
+</body>
 </html>
