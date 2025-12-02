@@ -92,6 +92,12 @@ function paintCategories(categoriesToPaint) {
 /**
  * Carga y pinta la tabla de sitios para la categoría seleccionada.
  */
+/**
+ * Carga y pinta la tabla de sitios para la categoría seleccionada.
+ */
+/**
+ * Carga y pinta la tabla de sitios para la categoría seleccionada.
+ */
 async function loadSites(categoryId) {
     const sites = await api.getSites(categoryId);
     listSites.innerHTML = "";
@@ -103,12 +109,32 @@ async function loadSites(categoryId) {
             <td>${site.user}</td>
             <td>${site.createdAt || 'N/A'}</td>
             <td>
-                <button class="btn-action btn-edit">✏️</button>
-                <button class="btn-action btn-delete-site" data-site-id="${site.id}">❌</button>
+                <button class="btn-action btn-open" title="Abrir URL">🔗</button>
+                
+                <button class="btn-action btn-edit" title="Editar">✏️</button>
+                
+                <button class="btn-action btn-delete-site" data-site-id="${site.id}" title="Eliminar">❌</button>
             </td>
         `;
 
-        // Lógica de Eliminación de Site
+        // 1. Lógica ABRIR URL (Nuevo)
+        const openButton = row.querySelector('.btn-open');
+        openButton.addEventListener('click', () => {
+            // Si la URL no empieza por http, se lo añadimos para evitar errores
+            let urlDestino = site.url;
+            if (!urlDestino.startsWith('http')) {
+                urlDestino = 'https://' + urlDestino;
+            }
+            window.open(urlDestino, '_blank');
+        });
+
+        // 2. Lógica EDITAR
+        const editButton = row.querySelector('.btn-edit');
+        editButton.addEventListener('click', () => {
+            editarSite(site, categoryId); 
+        });
+
+        // 3. Lógica ELIMINAR
         const deleteButton = row.querySelector('.btn-delete-site');
         deleteButton.addEventListener('click', async () => {
             if (confirm(`¿Estás seguro de eliminar el site: ${site.name}?`)) {
@@ -120,6 +146,50 @@ async function loadSites(categoryId) {
 
         listSites.appendChild(row);
     });
+}
+
+/**
+ * Abre un modal para editar un sitio y guarda los cambios.
+ */
+async function editarSite(site, currentCategoryId) {
+    const { value: formValues } = await Swal.fire({
+        title: 'Editar Site',
+        html:
+            `<input id="swal-edit-name" class="swal2-input" placeholder="Nombre/URL" value="${site.name}">` +
+            `<input id="swal-edit-user" class="swal2-input" placeholder="Usuario" value="${site.user}">` +
+            `<input id="swal-edit-pass" class="swal2-input" type="text" placeholder="Contraseña" value="${site.password}">` +
+            `<textarea id="swal-edit-desc" class="swal2-textarea" placeholder="Descripción">${site.description}</textarea>`,
+        focusConfirm: false,
+        showCancelButton: true,
+        confirmButtonText: 'Actualizar',
+        cancelButtonText: 'Cancelar',
+        preConfirm: () => {
+            return {
+                name: document.getElementById('swal-edit-name').value,
+                url: document.getElementById('swal-edit-name').value, // Asumimos URL igual a nombre
+                user: document.getElementById('swal-edit-user').value,
+                password: document.getElementById('swal-edit-pass').value,
+                description: document.getElementById('swal-edit-desc').value
+            };
+        }
+    });
+
+    if (formValues) {
+        // Mantenemos los campos que no cambiamos (como el id de categoría)
+        const updatedData = {
+            ...formValues,
+            category_id: site.categoryId 
+        };
+
+        const success = await api.updateSite(site.id, updatedData);
+
+        if (success) {
+            Swal.fire('¡Actualizado!', 'El sitio ha sido modificado.', 'success');
+            loadSites(currentCategoryId); // Recargar la tabla
+        } else {
+            Swal.fire('Error', 'No se pudo actualizar el sitio.', 'error');
+        }
+    }
 }
 
 /**
@@ -166,7 +236,7 @@ btnAddCategory.addEventListener('click', async () => {
             '<input id="swal-input-name" class="swal2-input" placeholder="Nombre de la categoría" required>' +
             // Genera el <select> con todos los iconos disponibles
             '<select id="swal-select-icon" class="swal2-select">' +
-            ICONS.map(icon => `<option value="${icon}">${icon} ${icon}</option>`).join('') +
+            ICONS.map(icon => `<option value="${icon}">${icon}</option>`).join('') +
             '</select>',
         focusConfirm: false,
         showCancelButton: true,

@@ -87,7 +87,7 @@ class API {
      */
     async addSite(siteData) {
         try {
-            const response = await fetch(`${this.BASE_URL}/sites`, {
+            const response = await fetch(`${this.BASE_URL}/categories/${siteData.category_id}`, {
                 method: 'POST', // Debe ser POST
                 headers: {
                     'Content-Type': 'application/json',
@@ -108,6 +108,27 @@ class API {
             return false;
         }
     }
+    /**
+     * Actualiza un sitio existente.
+     * @param {number} id - ID del sitio a actualizar.
+     * @param {object} siteData - Nuevos datos del sitio.
+     */
+    async updateSite(id, siteData) {
+        try {
+            const response = await fetch(`${this.BASE_URL}/sites/${id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(siteData),
+            });
+            return response.ok;
+        } catch (error) {
+            console.error('Error al actualizar sitio:', error);
+            return false;
+        }
+    }
+    
 
 
     // =========================================================
