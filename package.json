@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "cross-env NODE_ENV=development node index.js",
     "db:init": "sequelize-cli db:migrate && sequelize-cli db:seed:all",
-    "www": "live-server www/"
+    "www": "live-server www/ --browser=chrome"
   },
   "author": "",
   "license": "ISC",

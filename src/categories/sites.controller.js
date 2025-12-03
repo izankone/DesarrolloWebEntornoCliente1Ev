@@ -1,6 +1,5 @@
 const models = require("../../db/models")
 
-// Esta función devuelve los SITIOS (y los filtra si hace falta)
 async function findAll(req, res) {
     const { categoryId } = req.query;
     
