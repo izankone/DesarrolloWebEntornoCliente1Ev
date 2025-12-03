@@ -1,18 +1,10 @@
-// www/api.js
 
 class API {
     constructor() {
-        // La URL base para las peticiones a json-server
         this.BASE_URL = 'http://localhost:3000'; 
     }
 
-    // =========================================================
-    // 1. MÉTODOS GET (LECTURA)
-    // =========================================================
-
-    /**
-     * Obtiene todas las categorías desde el servidor.
-     */
+  
     async getCategories() {
         try {
             const response = await fetch(`${this.BASE_URL}/categories`);
@@ -29,9 +21,7 @@ class API {
         }
     }
 
-    /**
-     * Obtiene los sitios web para una categoría específica.
-     */
+    
     async getSites(categoryId) {
         try {
             const response = await fetch(`${this.BASE_URL}/sites?categoryId=${categoryId}`);
@@ -47,14 +37,10 @@ class API {
     }
 
 
-    // =========================================================
-    // 2. MÉTODOS POST (ESCRITURA)
-    // =========================================================
-
+    
     /**
-     * Añade una nueva categoría al servidor.
-     * @param {object} categoryData - Objeto con {name: string, icon: string}
-     * @returns {object|boolean} La categoría creada o false si falla.
+     * @param {object} categoryData 
+     * @returns {object|boolean} 
      */
     async addCategory(categoryData) {
         try {
@@ -81,22 +67,21 @@ class API {
     }
     
     /**
-     * Añade un nuevo sitio web al servidor. (¡IMPLEMENTACIÓN FALTANTE!)
-     * @param {object} siteData - Objeto con datos del sitio.
-     * @returns {object|boolean} El sitio creado o false si falla.
+     * @param {object} siteData 
+     * @returns {object|boolean} 
      */
     async addSite(siteData) {
         try {
             const response = await fetch(`${this.BASE_URL}/categories/${siteData.category_id}`, {
-                method: 'POST', // Debe ser POST
+                method: 'POST', 
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(siteData), // Enviar los datos
+                body: JSON.stringify(siteData), 
             });
 
             if (response.ok) { 
-                return await response.json(); // Devuelve el objeto creado
+                return await response.json(); 
             } else {
                 const errorText = await response.text();
                 console.error(`❌ Fallo al crear el site (Status: ${response.status}):`, errorText);
@@ -109,9 +94,8 @@ class API {
         }
     }
     /**
-     * Actualiza un sitio existente.
-     * @param {number} id - ID del sitio a actualizar.
-     * @param {object} siteData - Nuevos datos del sitio.
+     * @param {number} id 
+     * @param {object} siteData 
      */
     async updateSite(id, siteData) {
         try {
@@ -131,14 +115,10 @@ class API {
     
 
 
-    // =========================================================
-    // 3. MÉTODOS DELETE (ELIMINAR)
-    // =========================================================
-
+   
     /**
-     * Elimina una categoría por su ID.
      * @param {number} id
-     * @returns {boolean} True si fue exitoso.
+     * @returns {boolean} 
      */
     async deleteCategory(id) {
         try {
@@ -153,9 +133,8 @@ class API {
     }
     
     /**
-     * Elimina un sitio web por su ID.
      * @param {number} id
-     * @returns {boolean} True si fue exitoso.
+     * @returns {boolean} 
      */
     async deleteSite(id) {
         try {
