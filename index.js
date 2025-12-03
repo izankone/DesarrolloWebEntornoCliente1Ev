@@ -9,7 +9,6 @@ const sitesController = require("./src/categories/sites.controller.js")
 const app = express()
 app.use(express.json());
 app.use(cors())
-// app.use(clientErrorHandler)
 
 const port = 3000
 
@@ -28,10 +27,6 @@ app.listen(port, () => {
 function clientErrorHandler(err, req, res, next) {
   console.log("Error de aplicación: " + err);
   res.sendStatus(err.statusCode)
-  // if (req.xhr) {
-  //   res.status(500).send({ error: 'Something failed!' });
-  // } else {
-  //   next(err);
-  // }
+  
 }
 
